@@ -51,6 +51,21 @@ app.get('/',(req,res)=>{
     res.render("pages/index");
 });
 
+app.get('/userlogin',(req,res)=>{
+    res.render("pages/userlogin");
+});
+
+app.get('/adminlogin',(req,res)=>{
+    res.render("pages/adminlogin");
+});
+
+app.get('/usersignup',(req,res)=>{
+    res.render("pages/usersignup");
+});
+
+app.get('/wsreg',(req,res)=>{
+    res.render("pages/workshopreg");
+});
 app.listen(port, () => {
     console.log(`Server running on port: ${port}`);
 });
