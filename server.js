@@ -1,37 +1,22 @@
 const express = require('express');
 const fileUpload = require('express-fileupload');
 const bodyParser = require('body-parser');
-const mysql = require('mysql');
 const path = require('path');
 const app = express();
-
-// const {getHomePage} = require('./routes/index');
-// const {addPlayerPage, addPlayer, deletePlayer, editPlayer, editPlayerPage} = require('./routes/player');
+var connection = require('./config');
 const port = 5000;
 
-// create connection to database
-// the mysql.createConnection function takes in a configuration object which contains host, user, password and the database name.
-const db = mysql.createConnection ({
-    host: 'localhost',
-    user: 'root',
-    password: 'neethu4547',
-    database: 'Web_Technology'
-});
-
-// connect to database
-db.connect((err) => {
-    if (err) {
-        throw err;
-    }
-    console.log('Connected to database');
-});
-global.db = db;
+var authenticateController=require('./routes/authenticate-controller');
+var registerController=require('./routes/reg-controller');
+var admauth=require('./routes/adm-authenticate');
+var admreg=require('./routes/adm-reg');
+ 
 
 // configure middleware
 app.set('port', process.env.port || port); // set express to use this port
 app.set('views', __dirname + '/views'); // set express to look in this folder to render our view
 app.set('view engine', 'ejs'); // configure template engine
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json()); // parse form data client
 app.use(express.static(path.join(__dirname, 'public'))); // configure express to use public folder
 app.use(fileUpload()); // configure fileupload
@@ -52,7 +37,10 @@ app.get('/',(req,res)=>{
 });
 
 app.get('/userlogin',(req,res)=>{
-    res.render("pages/userlogin");
+    var title = "User Login";
+    res.render("pages/userlogin",{
+        title:title
+    });
 });
 
 app.get('/adminlogin',(req,res)=>{
@@ -66,6 +54,21 @@ app.get('/usersignup',(req,res)=>{
 app.get('/wsreg',(req,res)=>{
     res.render("pages/workshopreg");
 });
+
+app.get('/adminsignup',(req,res)=>{
+    res.render("pages/adminsignup");
+});
+
+
+app.post('/api/register',registerController.register);
+app.post('/api/authenticate',authenticateController.authenticate);
+ 
+//console.log(authenticateController);
+app.post('/routes/reg-controller', registerController.register);
+app.post('/routes/authenticate-controller', authenticateController.authenticate);
+app.post('/routes/admreg', admreg.register);
+app.post('/routes/admauth', admauth.authenticate);
+
 app.listen(port, () => {
     console.log(`Server running on port: ${port}`);
 });
