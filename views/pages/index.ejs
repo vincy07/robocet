@@ -13,29 +13,29 @@
 <div class="form-group">
     <label class="control-label col-sm-2" for="email">Name:</label>
     <div class="col-sm-10">
-        <input type="text" class="form-control" id="name" placeholder="Enter Name">
+        <input type="text" class="form-control" id="name" placeholder="Enter Name" required>
     </div>
 </div>
   <div class="form-group">
     <label class="control-label col-sm-2" for="pwd">Semester:</label>
     <div class="col-sm-10">
-        <input type="text" class="form-control" id="sem" placeholder="Enter Semester">
+        <input type="text" class="form-control" id="sem" placeholder="Enter Semester" required>
     </div>
   </div>
   <div class="form-group">
     <label class="control-label col-sm-2" for="pwd">Department:</label>
     <div class="col-sm-10">
-        <input type="text" class="form-control" id="sem" placeholder="Enter Department">
+        <input type="text" class="form-control" id="sem" placeholder="Enter Department" required>
     </div>
   </div>
   <div class="form-group">
     <label class="control-label col-sm-2" for="pwd">Mobile Number:</label>
     <div class="col-sm-10">
-        <input type="text" class="form-control" id="sem" placeholder="Enter Mobile">
+        <input type="text" class="form-control" id="sem" placeholder="Enter Mobile" required>
     </div>
   </div>
   <div class="form-group">
-    <label class="control-label col-sm-2" for="email">Email:</label>
+    <label class="control-label col-sm-2" for="email" req>Email:</label>
     <div class="col-sm-10">
         <input type="text" class="form-control" id="email" placeholder="Enter Email">
     </div>
@@ -49,9 +49,17 @@
   </div>
   <div class="form-group">
     <div class="col-sm-offset-2 col-sm-10">
-      <button type="submit" class="btn btn-primary">Submit</button>
+      <button type="submit" class="btn btn-primary" onclick="submitForm()">Submit</button>
     </div>
   </div>
-</form>    
+</form>   
+<script>
+    function submitForm() {         
+      var frm = document.getElementsByName('myform')[0];
+      frm.submit(); // Submit the form
+      frm.reset();  // Reset all form data
+      return false; // Prevent page refresh
+    }
+</script> 
 </body>
 </html>

@@ -9,6 +9,9 @@ module.exports.register=function(req,res){
     var encryptedString = cryptr.encrypt(req.body.password);
     var users={
         "name":req.body.name,
+        "college":req.body.college,
+        "department":req.body.department,
+        "semester":req.body.semester,
         "email":req.body.email,
         "password":encryptedString,
         "created at":today,
@@ -22,11 +25,14 @@ module.exports.register=function(req,res){
             message:'there are some error with query'
         })
       }else{
-          res.json({
+          /*res.json({
             status:true,
             data:results,
-            message:'user registered sucessfully'
-        })
+            message:'user registered sucessfully'*/
+          res.render("pages/userlogin.ejs",{
+            title:"User Login"
+          });  
+        
       }
     });
 }

@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <% include ../partials/head %>
+</head>
+<body>
+    <header>
+        <% include ../partials/header %>
+        <% include ../partials/footercss %>
+    </header>
+    <h1 align="center" style="font-family: Oswald;"><b><%= title %></b></h1>
+    <br>
+    <ul>
+        <li><%= name %></li>
+        <li><%= email %></li>
+        <% results.forEach(function(result) { %>
+            <li><%= result.name %> - <%= result.workshop %></li>
+        <% }); %>
+    </ul>
+    <% include ../partials/footer %>
+</body>
+</html>    

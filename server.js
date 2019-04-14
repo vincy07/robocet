@@ -10,6 +10,7 @@ var authenticateController=require('./routes/authenticate-controller');
 var registerController=require('./routes/reg-controller');
 var admauth=require('./routes/adm-authenticate');
 var admreg=require('./routes/adm-reg');
+var wsreg = require('./routes/ws-reg');
  
 
 // configure middleware
@@ -68,6 +69,7 @@ app.post('/routes/reg-controller', registerController.register);
 app.post('/routes/authenticate-controller', authenticateController.authenticate);
 app.post('/routes/admreg', admreg.register);
 app.post('/routes/admauth', admauth.authenticate);
+app.post('/routes/wsreg', wsreg.register);
 
 app.listen(port, () => {
     console.log(`Server running on port: ${port}`);
