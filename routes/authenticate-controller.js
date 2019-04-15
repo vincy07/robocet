@@ -19,6 +19,9 @@ module.exports.authenticate=function(req,res){
         if(results.length >0){
             title = "Dashboard";
             name = results[0].name;
+            college = results[0].college;
+            dept = results[0].department;
+            sem = results[0].semester;
             decryptedString = cryptr.decrypt(results[0].password);
             if(password==decryptedString){
                 /*res.json({
@@ -38,6 +41,9 @@ module.exports.authenticate=function(req,res){
                         title:title,
                         email:email,
                         name:name,
+                        college:college,
+                        sem:sem,
+                        dept:dept,
                         results:resul
                       });
                     }
