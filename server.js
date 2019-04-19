@@ -1,4 +1,5 @@
 const express = require('express');
+const session = require('express-session');
 const fileUpload = require('express-fileupload');
 const bodyParser = require('body-parser');
 const path = require('path');
@@ -11,26 +12,22 @@ var registerController=require('./routes/reg-controller');
 var admauth=require('./routes/adm-authenticate');
 var admreg=require('./routes/adm-reg');
 var wsreg = require('./routes/ws-reg');
+
+var sess;
  
 
 // configure middleware
 app.set('port', process.env.port || port); // set express to use this port
 app.set('views', __dirname + '/views'); // set express to look in this folder to render our view
 app.set('view engine', 'ejs'); // configure template engine
+app.use(session({secret: 'ssshhhhh',saveUninitialized: true,resave: true}));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json()); // parse form data client
 app.use(express.static(path.join(__dirname, 'public'))); // configure express to use public folder
 app.use(fileUpload()); // configure fileupload
 
 // routes for the app
-/*
-app.get('/', getHomePage);
-app.get('/add', addPlayerPage);
-app.get('/edit/:id', editPlayerPage);
-app.get('/delete/:id', deletePlayer);
-app.post('/add', addPlayer);
-app.post('/edit/:id', editPlayer);
-*/
+
 
 // set the app to listen on the port
 app.get('/',(req,res)=>{
@@ -58,6 +55,29 @@ app.get('/wsreg',(req,res)=>{
 
 app.get('/adminsignup',(req,res)=>{
     res.render("pages/adminsignup");
+});
+
+app.get('/dashboard',(req,res)=>{
+    sess = req.session;
+    console.log(sess);
+    if(sess.email){
+        res.render("pages/dashboard",{
+            email:sess.email,
+            results:sess.results
+        });
+    }else{
+        res.redirect("/userlogin");
+    }
+});
+
+app.get('/logout',(req,res) => {
+    req.session.destroy((err) => {
+        if(err) {
+            return console.log(err);
+        }
+        res.redirect('/userlogin');
+    });
+
 });
 
 

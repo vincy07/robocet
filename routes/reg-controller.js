@@ -29,9 +29,7 @@ module.exports.register=function(req,res){
             status:true,
             data:results,
             message:'user registered sucessfully'*/
-          res.render("pages/userlogin.ejs",{
-            title:"User Login"
-          });  
+            res.redirect('/userlogin');
         
       }
     });

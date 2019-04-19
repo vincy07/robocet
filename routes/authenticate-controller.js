@@ -3,11 +3,10 @@ cryptr = new Cryptr('myTotalySecretKey');
  
 var connection = require('./../config');
 module.exports.authenticate=function(req,res){
-    
+    sess = req.session;
     var email=req.body.email;
     var password=req.body.password;
     //var sql = "SELECT u.name,u.email,u.password,w.workshop from User u, Workshop w WHERE u.email = ? and u.email=c.email and u.name = c.name"
-    
     connection.query("SELECT * from User WHERE email = ?",[email], function (error, results, fields) {
       if (error) {
           res.json({
@@ -15,13 +14,17 @@ module.exports.authenticate=function(req,res){
             message:'there are some error with query'
             })
       }else{
-       
+        sess.email = email;
         if(results.length >0){
             title = "Dashboard";
             name = results[0].name;
+            sess.name = results[0].name;
             college = results[0].college;
+            sess.college = results[0].college;
             dept = results[0].department;
+            sess.dept = results[0].department;
             sem = results[0].semester;
+            sess.sem = results[0].semester;
             decryptedString = cryptr.decrypt(results[0].password);
             if(password==decryptedString){
                 /*res.json({
@@ -37,6 +40,7 @@ module.exports.authenticate=function(req,res){
                     })
                   }else{
                     if(resul.length > 0){
+                      sess.results = resul;
                       res.render("pages/dashboard.ejs",{
                         title:title,
                         email:email,
@@ -49,6 +53,8 @@ module.exports.authenticate=function(req,res){
                     }
                     else{
                       resul=[];
+                      sess.results = resul;
+                      console.log(sess);
                       res.render("pages/dashboard.ejs",{
                         title:title,
                         email:email,
@@ -71,9 +77,7 @@ module.exports.authenticate=function(req,res){
                   message:"Email and password does not match"
                  });*/
                  title="User Login"
-                 res.render("pages/userlogin",{
-                   title:title
-                 });
+                res.redirect('/userlogin');
             }
           
         }
