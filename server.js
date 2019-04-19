@@ -14,6 +14,8 @@ var admreg=require('./routes/adm-reg');
 var wsreg = require('./routes/ws-reg');
 
 var sess;
+
+var signed = 0;
  
 
 // configure middleware
@@ -35,10 +37,16 @@ app.get('/',(req,res)=>{
 });
 
 app.get('/userlogin',(req,res)=>{
+    sess = req.session;
+    console.log(sess);
+    if(sess.email){
+        res.redirect("/dashboard");
+    }else{
     var title = "User Login";
     res.render("pages/userlogin",{
         title:title
     });
+    }   
 });
 
 app.get('/adminlogin',(req,res)=>{
@@ -61,9 +69,11 @@ app.get('/dashboard',(req,res)=>{
     sess = req.session;
     console.log(sess);
     if(sess.email){
+        signed = 1;
         res.render("pages/dashboard",{
             email:sess.email,
-            results:sess.results
+            results:sess.results,
+            signin:signed
         });
     }else{
         res.redirect("/userlogin");
@@ -80,6 +90,9 @@ app.get('/logout',(req,res) => {
 
 });
 
+app.get('/routes/authenticate-controller',(req,res)=>{
+    res.redirect('/dashboard');
+});
 
 app.post('/api/register',registerController.register);
 app.post('/api/authenticate',authenticateController.authenticate);

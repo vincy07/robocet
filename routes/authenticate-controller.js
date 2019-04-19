@@ -41,26 +41,28 @@ module.exports.authenticate=function(req,res){
                   }else{
                     if(resul.length > 0){
                       sess.results = resul;
-                      res.render("pages/dashboard.ejs",{
-                        title:title,
-                        email:email,
-                        name:name,
-                        college:college,
-                        sem:sem,
-                        dept:dept,
-                        results:resul
-                      });
+                      // res.render("pages/dashboard.ejs",{
+                      //   title:title,
+                      //   email:email,
+                      //   name:name,
+                      //   college:college,
+                      //   sem:sem,
+                      //   dept:dept,
+                      //   results:resul
+                      // });
+                      res.redirect("/dashboard");
                     }
                     else{
                       resul=[];
                       sess.results = resul;
-                      console.log(sess);
-                      res.render("pages/dashboard.ejs",{
-                        title:title,
-                        email:email,
-                        name:name,
-                        results:resul
-                      });
+                      //console.log(sess);
+                    //   res.render("pages/dashboard.ejs",{
+                    //     title:title,
+                    //     email:email,
+                    //     name:name,
+                    //     results:resul
+                    //   });
+                        res.redirect("/dashboard");
                     }
                   }
                   
