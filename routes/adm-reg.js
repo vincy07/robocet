@@ -5,7 +5,7 @@ var connection = require('./../config');
  
 module.exports.register=function(req,res){
     var today = new Date();
-    //console.log(req.body.password);
+    console.log(req.body.password);
     var encryptedString = cryptr.encrypt(req.body.password);
     var users={
         "name":req.body.name,

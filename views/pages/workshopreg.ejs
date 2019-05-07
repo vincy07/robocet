@@ -10,7 +10,7 @@
     </header>
     <h1 align="center" style="font-family: Oswald;"><b>Workshop Registration Form</b></h1>
     <br>
-<form class="form-horizontal" action="/routes/wsreg" method="POST" name="myform">
+<form class="form-horizontal" action="/routes/wsreg" method="POST" name="myform" style="margin-right: 10%; margin-left: 10%;">
 <div class="form-group">
     <label class="control-label col-sm-2" for="email">Name:</label>
     <div class="col-sm-10">
@@ -60,6 +60,11 @@
     </div>
   </div>
 </form> 
+<% if (sess.message) { %>
+<div class="alert alert-danger">
+  <%= sess.message %>
+</div>
+<% } %>
 <% include ../partials/footer %>
 <script>
     function submitForm() {         

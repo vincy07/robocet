@@ -2,6 +2,7 @@ const express = require('express');
 const session = require('express-session');
 const fileUpload = require('express-fileupload');
 const bodyParser = require('body-parser');
+//const popup = require('popups');
 const path = require('path');
 const app = express();
 var connection = require('./config');
@@ -33,36 +34,50 @@ app.use(fileUpload()); // configure fileupload
 
 // set the app to listen on the port
 app.get('/',(req,res)=>{
-    res.render("pages/index");
+    res.render("pages/main");
 });
 
 app.get('/userlogin',(req,res)=>{
     sess = req.session;
+    console.log("Ivdundtto");
     console.log(sess);
-    if(sess.email){
+    if(sess.college){
         res.redirect("/dashboard");
     }else{
     var title = "User Login";
     res.render("pages/userlogin",{
-        title:title
+        title:title,
+        sess:sess
     });
     }   
 });
 
 app.get('/adminlogin',(req,res)=>{
-    res.render("pages/adminlogin");
+    sess = req.session;
+    res.render("pages/adminlogin",{
+        sess:sess
+    });
 });
 
 app.get('/usersignup',(req,res)=>{
-    res.render("pages/usersignup");
+    sess = req.session;
+    res.render("pages/usersignup",{
+        sess:sess
+    });
 });
 
 app.get('/wsreg',(req,res)=>{
-    res.render("pages/workshopreg");
+    sess = req.session;
+    res.render("pages/workshopreg",{
+        sess:sess
+    });
 });
 
 app.get('/adminsignup',(req,res)=>{
-    res.render("pages/adminsignup");
+    sess = req.session;
+    res.render("pages/adminsignup",{
+        sess:sess
+    });
 });
 
 app.get('/dashboard',(req,res)=>{
@@ -73,7 +88,8 @@ app.get('/dashboard',(req,res)=>{
         res.render("pages/dashboard",{
             email:sess.email,
             results:sess.results,
-            signin:signed
+            signin:signed,
+            sess:sess
         });
     }else{
         res.redirect("/userlogin");
@@ -85,14 +101,14 @@ app.get('/logout',(req,res) => {
         if(err) {
             return console.log(err);
         }
-        res.redirect('/userlogin');
+        // res.redirect('/userlogin');
     });
+    sess = req.session;
+    console.log(sess);
+    res.redirect('/userlogin');
 
 });
 
-app.get('/routes/authenticate-controller',(req,res)=>{
-    res.redirect('/dashboard');
-});
 
 app.post('/api/register',registerController.register);
 app.post('/api/authenticate',authenticateController.authenticate);

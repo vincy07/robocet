@@ -14,24 +14,34 @@ module.exports.authenticate=function(req,res){
             message:'there are some error with query'
             })
       }else{
-        sess.email = email;
         if(results.length >0){
-            title = "Dashboard";
-            name = results[0].name;
-            sess.name = results[0].name;
-            college = results[0].college;
-            sess.college = results[0].college;
-            dept = results[0].department;
-            sess.dept = results[0].department;
-            sem = results[0].semester;
-            sess.sem = results[0].semester;
+            // title = "Dashboard";
+            // name = results[0].name;
+            // sess.name = results[0].name;
+            // college = results[0].college;
+            // sess.college = results[0].college;
+            // dept = results[0].department;
+            // sess.dept = results[0].department;
+            // sem = results[0].semester;
+            // sess.sem = results[0].semester;
             decryptedString = cryptr.decrypt(results[0].password);
             if(password==decryptedString){
+              title = "Dashboard";
+              sess.email = email;
+              name = results[0].name;
+              sess.name = results[0].name;
+              college = results[0].college;
+              sess.college = results[0].college;
+              dept = results[0].department;
+              sess.dept = results[0].department;
+              sem = results[0].semester;
+              sess.sem = results[0].semester;
                 /*res.json({
                     status:true,
                     message:'successfully authenticated'
                 })*/
                 //console.log(name);
+                console.log(password);
                 connection.query("Select * from Workshop where email = ?",[email],function(error,resul,fields){
                   if(error){
                     res.json({
@@ -62,7 +72,8 @@ module.exports.authenticate=function(req,res){
                     //     name:name,
                     //     results:resul
                     //   });
-                        res.redirect("/dashboard");
+                      console.log("aano");
+                      res.redirect("/dashboard");
                     }
                   }
                   
@@ -78,8 +89,12 @@ module.exports.authenticate=function(req,res){
                   status:false,
                   message:"Email and password does not match"
                  });*/
-                 title="User Login"
+                console.log("here");
+                title="User Login";
+                console.log(title);
                 res.redirect('/userlogin');
+                //alert("Please enter correct user name and password.")
+                
             }
           
         }

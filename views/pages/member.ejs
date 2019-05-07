@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <% include ../partials/head %>
+</head>
+<body>
+    <header>
+    <% include ../partials/header %>
+    </header>
+    <h1 align="center" style="font-family: Oswald;"><b>Membership Registration Form</b></h1>
+    <br>
+<form class="form-horizontal" action="/action_page.php" name="myform" style="margin-right: 10%; margin-left: 10%;">
+<div class="form-group">
+    <label class="control-label col-sm-2" for="email">Name:</label>
+    <div class="col-sm-10">
+        <input type="text" class="form-control" id="name" placeholder="Enter Name" required>
+    </div>
+</div>
+  <div class="form-group">
+    <label class="control-label col-sm-2" for="pwd">Semester:</label>
+    <div class="col-sm-10">
+        <input type="text" class="form-control" id="sem" placeholder="Enter Semester" required>
+    </div>
+  </div>
+  <div class="form-group">
+    <label class="control-label col-sm-2" for="pwd">Department:</label>
+    <div class="col-sm-10">
+        <input type="text" class="form-control" id="sem" placeholder="Enter Department" required>
+    </div>
+  </div>
+  <div class="form-group">
+    <label class="control-label col-sm-2" for="pwd">Mobile Number:</label>
+    <div class="col-sm-10">
+        <input type="text" class="form-control" id="sem" placeholder="Enter Mobile" required>
+    </div>
+  </div>
+  <div class="form-group">
+    <label class="control-label col-sm-2" for="email" req>Email:</label>
+    <div class="col-sm-10">
+        <input type="text" class="form-control" id="email" placeholder="Enter Email">
+    </div>
+  </div>
+  <div class="form-group">
+    <div class="col-sm-offset-2 col-sm-10">
+      <div class="checkbox">
+        <label><input type="checkbox"> Remember me</label>
+      </div>
+    </div>
+  </div>
+  <div class="form-group">
+    <div class="col-sm-offset-2 col-sm-10">
+      <button type="submit" class="btn btn-primary" onclick="submitForm()">Submit</button>
+    </div>
+  </div>
+</form>   
+<script>
+    function submitForm() {         
+      var frm = document.getElementsByName('myform')[0];
+      frm.submit(); // Submit the form
+      frm.reset();  // Reset all form data
+      return false; // Prevent page refresh
+    }
+</script> 
+</body>
+</html>
